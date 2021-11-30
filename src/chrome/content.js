@@ -1,4 +1,5 @@
 // -- Injection funcs --
+
 const injectFile = (fileName) => {
     const script = document.createElement('script');
     script.src = chrome.extension.getURL(fileName);
@@ -21,9 +22,9 @@ const injectFunc = (fn) => {
 
 // -- End of injection funcs --
 
-chrome.runtime.onMessage.addListener((payload) => {
-    if (payload.type === 'TAB_CHANGE' && location.href.startsWith("https://www.netflix.com/watch/"))
-        injectFunc(() => window.checkSkipPin?.());
-});
-
 injectFile('plugin.js');
+
+chrome.runtime.onMessage.addListener((payload) => {
+    if (payload.type === 'CHECK_PIN')
+        injectFunc(() => window.checkSkipPin());
+});
