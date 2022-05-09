@@ -25,6 +25,6 @@ const injectFunc = (fn) => {
 injectFile('plugin.js');
 
 chrome.runtime.onMessage.addListener((payload) => {
-    if (payload.type === 'CHECK_PIN')
-        injectFunc(() => window.checkSkipPin());
+    if (payload.type === 'SKIP_PIN')
+        injectFunc(() => window.registerSkipNetflixAgePinInterval());
 });
